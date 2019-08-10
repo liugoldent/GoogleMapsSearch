@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+  <title> Google Maps Search</title>
+  <link rel="stylesheet" type="text/css" href="./style/GoogleMapsSearch.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Cinzel&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+<div id='app'>
+
+<div class='row' id="Content1">
+  <!-- Part1 -->
+  <div class='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' id="Left">
+    <div id="floatingPanel">
+      <p>Starting Location</p>
+      <input id="Starting" type="textbox" value="Taipei 101" v-model.trim="Starting" style="text-align: center">
+      <p>Store</p>
+      <input id="Store" type="textbox" value="711" v-model.trim="Store" style="text-align: center">
+      <br>
+      <button @click="GetValue()" id="ShowMap">Show On Map</button><br>
+      <button @click="addMarker()" id="ShowStore">Show The Stores</button>
+      
+      <hr>
+
+      
+
+
+      <p>Travel Mode</p>
+      <select v-model="FinalMode" id='TravelMode'>
+        <option value="0" disabled selected>SELECT</option>
+        <option :value="Mode.text" v-for="Mode in UserTravelMode">{{Mode.text}}</option>
+      </select>
+      <br>
+      <hr>
+
+
+      <p>Destination</p>
+      <select v-model="FinalDestination" id='FinalDestination'>
+        <option value="0" disabled selected>SELECT</option>
+        <option :value="Destination.text" v-for="Destination in WantDestination">{{Destination.text}}</option>
+      </select>
+      <br>
+      <button @click="Destination()" id="HowTo" href="#RowRight">How To Arrive</button>
+      <hr>
+
+    </div>
+  </div>
+</div>
+
+
+<div>
+  <div class='row' id="RowRight">
+  <!-- Part2 -->
+    <div class='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' id="Right">
+      <div id="map"></div>
+      <div id="warnings-panel"></div>
+    </div>
+  </div>
+</div>
+
+<div class="row" id="Content2">
+  <!-- Part3 -->
+    <div class='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12' id="Down">
+
+      <div id="selectModel2">
+        <select v-model="selected" id="selectMain2" >
+          <option  value="0" disabled selected>SELECT SORT STYLE</option>
+          <option :value="option.value" v-for="option in options">{{option.text}}</option>
+        </select>
+      </div>
+
+      <div v-for="(item,value) in ShowResult" :key="value" class="Content2">
+
+        <div class='row' id="content2_title">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" id="ItemTitle">
+              <div id="ForTitleColor"><p>Name：{{item.PointName}}</p></div>
+          </div>
+        </div>
+
+        <div class="row" id="content2_text">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 ItemText1" id="ItemText1">
+              <div class="ForTextColor"><p>Rating：{{item.PointRating}}</p></div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 ItemText2" id="ItemText2">
+              <div class="ForTextColor"><p>Rating Counts：{{item.PointRatingCounts}}</p></div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 ItemText3" id="ItemText3">
+              <div class="ForTextColor"><p>Distance：{{item.PointDistance}}m</p></div>
+          </div>
+        </div>
+        <br>
+        <hr>   
+      </div>
+
+
+
+    </div>
+</div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.6/vue-router.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/3.0.1/vuex.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap-grid.css' />
+<script src='GoogleMapsSearch.js'></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKPRtjCaWwtsRtJLlQWDC4c9UapdhJu1o&type=restaurant&keyword=餐廳&libraries=geometry&callback=initMap"></script>
+</body>
+</html>
