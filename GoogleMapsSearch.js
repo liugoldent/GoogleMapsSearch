@@ -42,11 +42,6 @@ function initMap() {
   console.log(geocoder);
   //增加搜尋條件 
 
-
-  
-
-  
-
 }
 
 //增加搜尋部分
@@ -63,7 +58,7 @@ function geocodeAddress(geocoder, resultsMap) {
         map: resultsMap,
         position: results[0].geometry.location,
         icon: icon,
-        animation: google.maps.Animation.BOUNCE
+        animation: google.maps.Animation.DROP
       });
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
